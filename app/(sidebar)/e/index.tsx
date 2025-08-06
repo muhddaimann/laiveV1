@@ -71,6 +71,7 @@ function DashboardView({
   onSelect: (id: string) => void;
 }) {
   const theme = useTheme();
+  const router = useRouter();
   const totalCandidates = candidates.length;
   const roleCounts = candidates.reduce((acc, c) => {
     const role = c.candidateDetails.roleAppliedFor;
@@ -207,17 +208,15 @@ function DashboardView({
               </Text>
             </View>
 
-            <View style={{ alignSelf: "flex-end" }}>
-              <Avatar.Icon
-                icon="chevron-right"
-                size={40}
-                color={theme.colors.onPrimary}
-                style={[
-                  styles.configureIcon,
-                  { backgroundColor: theme.colors.primary },
-                ]}
-              />
-            </View>
+            <Button
+              mode="contained"
+              style={{ alignSelf: "flex-end" }}
+              onPress={() => router.push("e/laiveConfigure")}
+              icon="chevron-right"
+              contentStyle={{ flexDirection: "row-reverse" }}
+            >
+              Configure
+            </Button>
           </View>
         </View>
       </View>
@@ -228,7 +227,6 @@ function DashboardView({
 }
 
 function SectionHeader({ title }: { title: string }) {
-  const theme = useTheme();
   const router = useRouter();
 
   return (
@@ -242,20 +240,14 @@ function SectionHeader({ title }: { title: string }) {
       }}
     >
       <Text style={styles.sectionTitle}>{title}</Text>
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center" }}
+      <Button
+        mode="text"
         onPress={() => router.push("e/laiveApplicant")}
+        icon="chevron-right"
+        contentStyle={{ flexDirection: "row-reverse" }}
       >
-        <Text style={{ color: theme.colors.primary, marginRight: -8 }}>
-          View all
-        </Text>
-        <Avatar.Icon
-          icon="chevron-right"
-          size={32}
-          color={theme.colors.primary}
-          style={{ backgroundColor: "transparent" }}
-        />
-      </TouchableOpacity>
+        View all
+      </Button>
     </View>
   );
 }
